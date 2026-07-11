@@ -358,6 +358,7 @@
                 <p>A privacy-first Android system that lets you conversationally query your old phone's data from your new device &mdash; with zero cloud AI involved.</p>
                 <p>I led a 3-person team through the full build: a Python backend generates 384-dimensional embeddings via sentence-transformers, an on-device RAG pipeline performs cosine similarity retrieval in under 50ms, and Gemma 3 1B (INT4 quantized) runs fully offline inference through MediaPipe's LLM Inference API.</p>
                 <p>The part I'm proudest of is the authentication design: instead of building an auth server, I baked a 4-word passphrase directly into the S3 path structure &mdash; security through architecture, not infrastructure. No database, no session management, no attack surface to maintain.</p>
+                <a class="proj-link" href="projects/ai-ghost.html">Read more &nearr;</a>
             </div>
 
             <div class="project">
@@ -369,6 +370,7 @@
                 <p>A detection system that catches deepfakes using something most detectors ignore: your heartbeat. I implemented Eulerian Video Magnification to amplify photoplethysmography (PPG) signals &mdash; subtle, invisible skin-color shifts correlated with blood flow &mdash; that are present in real footage but usually absent in synthetic video.</p>
                 <p>Achieved 85% detection accuracy across 150+ videos from the FaceForensics++ dataset, with the full pipeline exposed via a FastAPI service returning confidence scores in under 30 seconds per video. Added result caching that cut disk I/O by 60%.</p>
                 <p>The interesting part wasn't the ML &mdash; it was realizing that physiological signals are a much harder thing for generative models to fake convincingly than pixel-level artifacts.</p>
+                <a class="proj-link" href="projects/deepfake-detection.html">Read more &nearr;</a>
             </div>
 
             <div class="project">
@@ -379,6 +381,7 @@
                 <div class="proj-stack">Deep Learning &middot; NLP &middot; Computer Vision &middot; Python</div>
                 <p>A wearable system where camera-embedded glasses capture sign language gestures and translate them into spoken audio in real time. The pipeline decouples three stages &mdash; gesture recognition (CNN, 85% accuracy), NLP-based sentence reconstruction from discrete gesture tokens, and speech synthesis &mdash; as independent, swappable components.</p>
                 <p>Currently optimizing for edge deployment: model quantization and asynchronous processing to keep the whole pipeline usable on low-power wearable hardware.</p>
+                <a class="proj-link" href="projects/sign-to-audio.html">Read more &nearr;</a>
             </div>
 
             <div class="project">
@@ -388,6 +391,7 @@
                 </div>
                 <div class="proj-stack">Arduino Uno &middot; Dual MPU6050 Gyroscopes &middot; Embedded Sensors &middot; C++</div>
                 <p>Built with team SpineSync. A smart backpack system that distinguishes between bad posture and terrain-induced movement &mdash; solving a real false-positive problem in existing posture trackers, which flag normal uphill or uneven-terrain walking as &ldquo;bad posture.&rdquo; Took the project from ideation through hardware debugging, firmware, and a full academic paper writeup &mdash; won 1st place at our college IoT expo.</p>
+                <a class="proj-link" href="projects/terrainfit.html">Read more &nearr;</a>
             </div>
 
             <div class="project">
@@ -397,6 +401,7 @@
                 </div>
                 <div class="proj-stack">Docker &middot; Kubernetes &middot; Argo Rollouts &middot; Prometheus &middot; Grafana &middot; CI/CD</div>
                 <p>Built with teammate Arun V. A full DevOps pipeline demonstrating canary deployments via Argo Rollouts, with a live observability stack (Prometheus + Grafana) monitoring rollout health in real time. Demoed live to faculty using ngrok tunnels &mdash; deliberately chose to build and demo this under real network constraints rather than a controlled local environment.</p>
+                <a class="proj-link" href="projects/safety-net-guardian.html">Read more &nearr;</a>
             </div>
 
             <div class="project">
@@ -406,6 +411,7 @@
                 </div>
                 <div class="proj-stack">Gemini 1.5 Flash Vision API &middot; Firebase &middot; React &middot; FastAPI &middot; Google Cloud Run</div>
                 <p>Built in a live hackathon setting with teammates Abhilash CN and Akshaay BS. Users photograph their food, Gemini Vision identifies it, and the system returns goal-aligned nutrition recommendations (weight loss, muscle gain, diabetes management, budget constraints) rather than generic calorie counts. Designed and deployed end-to-end &mdash; auth, food logging, AI analysis, and history &mdash; within a single hackathon sprint.</p>
+                <a class="proj-link" href="projects/nutrimind.html">Read more &nearr;</a>
             </div>
         </section>
 
