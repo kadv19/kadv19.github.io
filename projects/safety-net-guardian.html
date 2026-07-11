@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Safety-Net Guardian — DevOps Observability Pipeline | Advaith Kashyap</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: #f8fafc;
+            color: #0f172a;
+            line-height: 1.6;
+        }
+        a { text-decoration: none; color: inherit; }
+        .container { max-width: 1000px; margin: 0 auto; padding: 0 24px; }
+        .hero {
+            background: linear-gradient(135deg, #0b1120 0%, #1a2332 50%, #0b1120 100%);
+            color: #f1f5f9;
+            padding: 72px 0 60px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background:
+                radial-gradient(circle at 15% 85%, rgba(59,130,246,0.10) 0%, transparent 50%),
+                radial-gradient(circle at 85% 15%, rgba(139,92,246,0.08) 0%, transparent 50%);
+        }
+        .hero .container { position: relative; }
+        .hero h1 {
+            font-size: 3.2rem;
+            font-weight: 800;
+            letter-spacing: -0.03em;
+            margin-bottom: 6px;
+        }
+        .hero .subtitle {
+            font-size: 1rem;
+            font-weight: 400;
+            color: #94a3b8;
+            margin-bottom: 8px;
+        }
+        .hero .back-link {
+            display: inline-block;
+            margin-bottom: 16px;
+            font-size: 0.9rem;
+            color: #60a5fa;
+            transition: color .2s;
+        }
+        .hero .back-link:hover { color: #93c5fd; }
+        .hero .tech-stack {
+            font-size: 0.85rem;
+            color: #64748b;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        main { padding: 32px 0 48px; }
+        .project-section { padding: 36px 0; }
+        .project-section + .project-section { border-top: 1px solid #e2e8f0; }
+        .section-title {
+            font-size: 0.85rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: #3b82f6;
+            margin-bottom: 14px;
+        }
+        .project-section p {
+            font-size: 0.95rem;
+            color: #334155;
+            max-width: 820px;
+            margin-bottom: 14px;
+        }
+        .project-section p:last-child { margin-bottom: 0; }
+        footer {
+            background: #0b1120;
+            color: #94a3b8;
+            text-align: center;
+            padding: 40px 0 32px;
+        }
+        footer h2 {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #f1f5f9;
+            margin-bottom: 4px;
+        }
+        footer .footer-sub {
+            font-size: 0.9rem;
+            color: #64748b;
+            margin-bottom: 20px;
+        }
+        footer .footer-links {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 8px 24px;
+            font-size: 0.9rem;
+        }
+        footer .footer-links a { color: #60a5fa; transition: color .2s; }
+        footer .footer-links a:hover { color: #93c5fd; }
+        @media (max-width: 640px) {
+            .hero h1 { font-size: 2rem; }
+            .hero { padding: 48px 0 40px; }
+            .project-section { padding: 24px 0; }
+        }
+    </style>
+</head>
+<body>
+    <header class="hero">
+        <div class="container">
+            <a class="back-link" href="../index.html">&larr; Back to Portfolio</a>
+            <h1>Safety-Net Guardian</h1>
+            <p class="subtitle">DevOps Observability Pipeline</p>
+            <p class="tech-stack">Docker &middot; Kubernetes &middot; Argo Rollouts &middot; Prometheus &middot; Grafana &middot; CI/CD</p>
+        </div>
+    </header>
+    <main class="container">
+        <div class="project-section">
+            <h2 class="section-title">Overview</h2>
+            <p>A full CI/CD pipeline with live canary deployments and real-time observability, deliberately demoed under real network constraints rather than a sanitized local environment.</p>
+        </div>
+        <div class="project-section">
+            <h2 class="section-title">Problem</h2>
+            <p>Most student DevOps projects are demoed on localhost with no real deployment risk. I wanted to prove the pipeline actually worked the way production systems do - safe, gradual rollouts, visible in real time, accessible from outside a local machine.</p>
+        </div>
+        <div class="project-section">
+            <h2 class="section-title">Architecture</h2>
+            <p>Code push to CI pipeline to Kubernetes deployment via Argo Rollouts (canary strategy) to Prometheus scraping metrics to Grafana dashboards, all tunneled live via ngrok for the faculty demo.</p>
+        </div>
+        <div class="project-section">
+            <h2 class="section-title">Technical Deep-Dive</h2>
+            <p>Argo Rollouts manages progressive canary deployment - a new version receives a small percentage of traffic first, and rollout continues only if health metrics stay green. Prometheus scrapes real-time metrics from the running pods; Grafana visualizes rollout health, error rates, and latency live during the demo. Entire stack containerized with Docker, orchestrated via Kubernetes. Chose ngrok tunneling specifically so the demo reflected real network latency and exposure rather than a local-only walkthrough.</p>
+        </div>
+        <div class="project-section">
+            <h2 class="section-title">Challenges</h2>
+            <p>Configuring canary rollout thresholds that were sensitive enough to catch real issues without being triggered by normal noise. Making the observability dashboards genuinely legible in a live demo setting, not just functional in isolation.</p>
+        </div>
+        <div class="project-section">
+            <h2 class="section-title">My Role</h2>
+            <p>Built with teammate Arun V - shared ownership of pipeline design, deployment strategy, and monitoring setup.</p>
+        </div>
+        <div class="project-section">
+            <h2 class="section-title">Results</h2>
+            <p>Successful live demo to faculty showing real canary rollout behavior and real-time metrics, accessible over the public internet via ngrok.</p>
+        </div>
+    </main>
+    <footer>
+        <div class="container">
+            <h2>Let's build something.</h2>
+            <p class="footer-sub">advaithk0019@gmail.com &middot; +91 9019527115 &middot; Mysore, Karnataka</p>
+            <div class="footer-links">
+                <a href="mailto:advaithk0019@gmail.com">Email</a>
+                <a href="https://github.com/kadv19" target="_blank">GitHub</a>
+                <a href="https://linkedin.com/in/advaith-kashyap-74b651359" target="_blank">LinkedIn</a>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
