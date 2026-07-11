@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Advaith Kashyap</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: #f8fafc;
+            color: #0f172a;
+            line-height: 1.6;
+        }
+
+        a { text-decoration: none; color: inherit; }
+
+        .container { max-width: 1000px; margin: 0 auto; padding: 0 24px; }
+
+        /* ─── Hero ─── */
+        .hero {
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
+            color: #f1f5f9;
+            padding: 64px 0 56px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at 20% 80%, rgba(59,130,246,0.12) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 20%, rgba(139,92,246,0.10) 0%, transparent 50%);
+        }
+        .hero .container { position: relative; }
+        .hero h1 {
+            font-size: 3rem;
+            font-weight: 800;
+            letter-spacing: -0.03em;
+            margin-bottom: 8px;
+        }
+        .hero .tagline {
+            font-size: 1.05rem;
+            font-weight: 400;
+            color: #94a3b8;
+            margin-bottom: 20px;
+        }
+        .hero .contact-links {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 6px 20px;
+            font-size: 0.9rem;
+            color: #cbd5e1;
+        }
+        .hero .contact-links a { color: #60a5fa; transition: color .2s; }
+        .hero .contact-links a:hover { color: #93c5fd; }
+        .hero .dot { color: #475569; }
+
+        /* ─── Sections ─── */
+        section { padding: 44px 0; }
+        section + section { border-top: 1px solid #e2e8f0; }
+
+        .section-title {
+            font-size: 1.15rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: #475569;
+            margin-bottom: 20px;
+        }
+
+        /* ─── Objective ─── */
+        #about p {
+            font-size: 0.95rem;
+            color: #334155;
+            max-width: 780px;
+        }
+
+        /* ─── Education ─── */
+        .edu-card {
+            background: #fff;
+            border-radius: 12px;
+            padding: 20px 24px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+            border: 1px solid #e2e8f0;
+        }
+        .edu-card .row1 {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            flex-wrap: wrap;
+            gap: 4px 12px;
+            margin-bottom: 4px;
+        }
+        .edu-card .row1 .school { font-weight: 700; font-size: 1rem; }
+        .edu-card .row1 .year { font-size: 0.85rem; color: #64748b; }
+        .edu-card .degree { font-size: 0.9rem; color: #475569; margin-bottom: 8px; }
+        .edu-card .courses {
+            font-size: 0.85rem;
+            color: #64748b;
+            background: #f1f5f9;
+            border-radius: 6px;
+            padding: 6px 12px;
+            display: inline-block;
+        }
+
+        /* ─── Skills ─── */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 8px;
+        }
+        .skill-cat {
+            background: #fff;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 12px 16px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+        }
+        .skill-cat .cat-label {
+            font-weight: 600;
+            font-size: 0.78rem;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+            color: #3b82f6;
+            margin-bottom: 4px;
+        }
+        .skill-cat .cat-items {
+            font-size: 0.88rem;
+            color: #334155;
+        }
+
+        /* ─── Projects ─── */
+        .project {
+            background: #fff;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 20px 24px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+            transition: box-shadow .2s, transform .2s;
+        }
+        .project:hover {
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            transform: translateY(-2px);
+        }
+        .project + .project { margin-top: 16px; }
+        .project .proj-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            flex-wrap: wrap;
+            gap: 4px 12px;
+            margin-bottom: 2px;
+        }
+        .project .proj-header h3 {
+            font-size: 1rem;
+            font-weight: 700;
+            color: #0f172a;
+        }
+        .project .proj-header .proj-date {
+            font-size: 0.8rem;
+            color: #64748b;
+            font-weight: 500;
+        }
+        .project .proj-stack {
+            font-size: 0.8rem;
+            color: #3b82f6;
+            font-weight: 500;
+            margin-bottom: 8px;
+        }
+        .project ul {
+            list-style: none;
+            padding: 0;
+        }
+        .project ul li {
+            font-size: 0.88rem;
+            color: #334155;
+            padding-left: 16px;
+            position: relative;
+            margin-bottom: 4px;
+        }
+        .project ul li::before {
+            content: '\2014';
+            position: absolute;
+            left: 0;
+            color: #94a3b8;
+        }
+
+        /* ─── Certs ─── */
+        .certs-list {
+            list-style: none;
+            padding: 0;
+            font-size: 0.88rem;
+            color: #334155;
+        }
+        .certs-list li { margin-bottom: 4px; }
+        .certs-list li::before { content: '\25B8'; color: #3b82f6; margin-right: 8px; }
+        .certs-list .interests-label {
+            font-weight: 600;
+            color: #0f172a;
+        }
+
+        /* ─── Footer ─── */
+        footer {
+            text-align: center;
+            padding: 24px 0;
+            font-size: 0.8rem;
+            color: #94a3b8;
+            border-top: 1px solid #e2e8f0;
+        }
+
+        /* ─── Responsive ─── */
+        @media (max-width: 640px) {
+            .hero h1 { font-size: 2.1rem; }
+            .hero { padding: 44px 0 36px; }
+            section { padding: 28px 0; }
+            .skills-grid { grid-template-columns: 1fr; }
+            .project { padding: 16px 18px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ═══ HERO ═══ -->
+    <header class="hero">
+        <div class="container">
+            <h1>Advaith Kashyap</h1>
+            <p class="tagline">Computer Science Engineer &middot; Full-Stack &amp; AI Systems</p>
+            <div class="contact-links">
+                <a href="mailto:advaith.kashyap19@gmail.com">advaith.kashyap19@gmail.com</a>
+                <span class="dot">&middot;</span>
+                <span>+91 9019527115</span>
+                <span class="dot">&middot;</span>
+                <span>Mysore, Karnataka</span>
+                <span class="dot">&middot;</span>
+                <a href="#">GitHub</a>
+                <span class="dot">&middot;</span>
+                <a href="#">LinkedIn</a>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+
+        <!-- ═══ ABOUT ═══ -->
+        <section id="about">
+            <h2 class="section-title">About</h2>
+            <p>
+                Computer Science Engineering student with strong fundamentals in data structures, algorithms,
+                full-stack development, and AI-enabled systems. Experienced in building production-grade distributed
+                applications, REST APIs, and scalable cloud-native software. Seeking a Specialist Programmer role
+                at Infosys to contribute to AI-first digital transformation initiatives.
+            </p>
+        </section>
+
+        <!-- ═══ EDUCATION ═══ -->
+        <section id="education">
+            <h2 class="section-title">Education</h2>
+            <div class="edu-card">
+                <div class="row1">
+                    <span class="school">The National Institute of Engineering, Mysuru</span>
+                    <span class="year">April 2027</span>
+                </div>
+                <div class="degree">B.E. in Computer Science Engineering &mdash; CGPA: 8.0 / 10.0</div>
+                <div class="courses">
+                    Data Structures &amp; Algorithms &middot; Operating Systems &middot; DBMS &middot;
+                    Computer Architecture &middot; Compiler Basics &middot; Algorithm Design &amp; Analysis &middot;
+                    Software Engineering
+                </div>
+            </div>
+        </section>
+
+        <!-- ═══ SKILLS ═══ -->
+        <section id="skills">
+            <h2 class="section-title">Technical Skills</h2>
+            <div class="skills-grid">
+                <div class="skill-cat">
+                    <div class="cat-label">Languages &amp; Runtimes</div>
+                    <div class="cat-items">Python, Java, C++, JavaScript, Kotlin, Go (basics)</div>
+                </div>
+                <div class="skill-cat">
+                    <div class="cat-label">Connector &amp; Integration</div>
+                    <div class="cat-items">REST APIs, webhooks, event-driven architecture, OAuth, schema mapping, retry logic, backpressure handling</div>
+                </div>
+                <div class="skill-cat">
+                    <div class="cat-label">Cloud &amp; Infrastructure</div>
+                    <div class="cat-items">AWS S3, GCP (Cloud Run), Docker, Kubernetes, CI/CD, multi-cloud portability</div>
+                </div>
+                <div class="skill-cat">
+                    <div class="cat-label">Observability &amp; Data</div>
+                    <div class="cat-items">FastAPI, Flask, React, Node.js, MySQL, MongoDB, Firebase, PostgreSQL</div>
+                </div>
+                <div class="skill-cat">
+                    <div class="cat-label">AI / ML &amp; Agentic Systems</div>
+                    <div class="cat-items">RAG pipelines, sentence-transformers, Gemma 3, MediaPipe, OpenCV, Scikit-learn, agentic orchestration</div>
+                </div>
+                <div class="skill-cat">
+                    <div class="cat-label">Dev Practices</div>
+                    <div class="cat-items">Agile/Scrum, Git, system design, component architecture, Linux, VS Code</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ═══ PROJECTS ═══ -->
+        <section id="projects">
+            <h2 class="section-title">Projects</h2>
+
+            <div class="project">
+                <div class="proj-header">
+                    <h3>AI Ghost &mdash; Distributed Connector Pipeline System</h3>
+                    <span class="proj-date">2025&ndash;2026</span>
+                </div>
+                <div class="proj-stack">Python &middot; FastAPI &middot; AWS S3 &middot; Android &middot; Gemma 3 &middot; Agile</div>
+                <ul>
+                    <li>Architected a bidirectional data connector system: Extractor ingests and pushes data to AWS S3; Retrieval pulls, indexes, and serves data.</li>
+                    <li>Designed connector harness with Ghost Key authentication (S3 path-based), presigned URL delivery, and fault-tolerant download with exponential backoff.</li>
+                    <li>Built RAG-based retrieval layer using sentence-transformers with cosine similarity search returning top-5 chunks in &lt;50ms.</li>
+                    <li>Integrated Gemma 3 1B INT4 via MediaPipe LLM Inference API for fully on-device orchestration with zero cloud dependency.</li>
+                    <li>Followed Agile sprints across a 3-person team; documented design decisions for maintainability and future extensions.</li>
+                </ul>
+            </div>
+
+            <div class="project">
+                <div class="proj-header">
+                    <h3>Deepfake Detection &mdash; Observability-Driven API Service</h3>
+                    <span class="proj-date">2025</span>
+                </div>
+                <div class="proj-stack">Python &middot; FastAPI &middot; Signal Processing &middot; OpenCV &middot; Scikit-learn</div>
+                <ul>
+                    <li>Designed stateless FastAPI endpoints with concurrent request handling, request queuing, and load balancing with per-request telemetry.</li>
+                    <li>Built Eulerian Video Magnification pipeline extracting PPG signals; optimized for &lt;30s latency with 85% accuracy on 150+ FaceForensics++ videos.</li>
+                    <li>Implemented result caching reducing disk I/O by 60%; modular architecture enables easy model versioning.</li>
+                </ul>
+            </div>
+
+            <div class="project">
+                <div class="proj-header">
+                    <h3>Sign-to-Audio Wearable Translation System</h3>
+                    <span class="proj-date">In Progress (85%)</span>
+                </div>
+                <div class="proj-stack">Deep Learning &middot; NLP &middot; Computer Vision &middot; Python</div>
+                <ul>
+                    <li>Architecting end-to-end pipeline: gesture input &rarr; CNN classifier (85% accuracy) &rarr; NLP semantic reconstruction &rarr; audio synthesis with standardized interfaces.</li>
+                    <li>Designed for edge deployment with model quantization, asynchronous processing, and decoupled architecture consistent with multi-cloud portability principles.</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- ═══ CERTIFICATIONS & INTERESTS ═══ -->
+        <section id="certifications">
+            <h2 class="section-title">Certifications &amp; Interests</h2>
+            <ul class="certs-list">
+                <li><span class="interests-label">Certifications:</span> Mathematics for ML: Linear Algebra &mdash; Imperial College London &middot; Probability &amp; Statistics for ML &mdash; DeepLearning.AI &middot; Quantum Computing &mdash; NPTEL</li>
+                <li><span class="interests-label">Interests:</span> Connector Ecosystems &middot; Distributed Data Pipelines &middot; Agentic AI Systems &middot; Multi-Cloud Architecture &middot; Developer Tooling &middot; System Design</li>
+            </ul>
+        </section>
+
+    </main>
+
+    <footer>
+        <div class="container">&copy; 2026 Advaith Kashyap</div>
+    </footer>
+
+</body>
+</html>
