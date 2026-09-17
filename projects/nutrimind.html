@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>NutriMind | Advaith Kashyap</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: #f8fafc;
+            color: #0f172a;
+            line-height: 1.6;
+        }
+        a { text-decoration: none; color: inherit; }
+        .container { max-width: 1000px; margin: 0 auto; padding: 0 24px; }
+        .hero {
+            background: linear-gradient(135deg, #0b1120 0%, #1a2332 50%, #0b1120 100%);
+            color: #f1f5f9;
+            padding: 72px 0 60px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background:
+                radial-gradient(circle at 15% 85%, rgba(59,130,246,0.10) 0%, transparent 50%),
+                radial-gradient(circle at 85% 15%, rgba(139,92,246,0.08) 0%, transparent 50%);
+        }
+        .hero .container { position: relative; }
+        .hero h1 {
+            font-size: 3.2rem;
+            font-weight: 800;
+            letter-spacing: -0.03em;
+            margin-bottom: 6px;
+        }
+        .hero .subtitle {
+            font-size: 1rem;
+            font-weight: 400;
+            color: #94a3b8;
+            margin-bottom: 8px;
+        }
+        .hero .back-link {
+            display: inline-block;
+            margin-bottom: 16px;
+            font-size: 0.9rem;
+            color: #60a5fa;
+            transition: color .2s;
+        }
+        .hero .back-link:hover { color: #93c5fd; }
+        .hero .tech-stack {
+            font-size: 0.85rem;
+            color: #64748b;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        .hero .gh-link {
+            display: inline-block;
+            margin-top: 12px;
+            font-size: 0.85rem;
+            color: #60a5fa;
+            border-bottom: 1px solid transparent;
+            transition: border-color .2s;
+        }
+        .hero .gh-link:hover { border-bottom-color: #60a5fa; }
+        .hero .status {
+            display: inline-block;
+            margin-top: 12px;
+            font-size: 0.8rem;
+            color: #f59e0b;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        .hero .award {
+            display: inline-block;
+            margin-top: 12px;
+            font-size: 0.8rem;
+            color: #f59e0b;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        .hero .event {
+            display: inline-block;
+            margin-top: 12px;
+            font-size: 0.8rem;
+            color: #60a5fa;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        main { padding: 32px 0 48px; }
+        .project-section { padding: 36px 0; }
+        .project-section + .project-section { border-top: 1px solid #e2e8f0; }
+        .section-title {
+            font-size: 0.85rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: #3b82f6;
+            margin-bottom: 14px;
+        }
+        .project-section p {
+            font-size: 0.95rem;
+            color: #334155;
+            max-width: 820px;
+            margin-bottom: 14px;
+        }
+        .project-section p:last-child { margin-bottom: 0; }
+        footer {
+            background: #0b1120;
+            color: #94a3b8;
+            text-align: center;
+            padding: 40px 0 32px;
+        }
+        footer h2 {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #f1f5f9;
+            margin-bottom: 4px;
+        }
+        footer .footer-sub {
+            font-size: 0.9rem;
+            color: #64748b;
+            margin-bottom: 20px;
+        }
+        footer .footer-links {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 8px 24px;
+            font-size: 0.9rem;
+        }
+        footer .footer-links a { color: #60a5fa; transition: color .2s; }
+        footer .footer-links a:hover { color: #93c5fd; }
+        @media (max-width: 640px) {
+            .hero h1 { font-size: 2rem; }
+            .hero { padding: 48px 0 40px; }
+            .project-section { padding: 24px 0; }
+        }
+    </style>
+</head>
+<body>
+    <header class="hero">
+        <div class="container">
+            <a class="back-link" href="../index.html">&larr; Back to Portfolio</a>
+            <h1>NutriMind</h1>
+            <p class="subtitle">AI Food Health Advisor</p>
+            <p class="tech-stack">Gemini 1.5 Flash Vision API &middot; Firebase &middot; React &middot; FastAPI &middot; Google Cloud Run</p>
+            <span class="event">AMD Ideathon, REVA University</span>
+            
+        </div>
+    </header>
+    <main class="container">
+        <div class="project-section">
+            <h2 class="section-title">Overview</h2>
+            <p>An AI food advisor that gives goal-aligned nutrition guidance, not generic calorie counts, built end-to-end in a single hackathon sprint.</p>
+        </div>
+        <div class="project-section">
+            <h2 class="section-title">Problem</h2>
+            <p>Most nutrition apps treat every user the same - same calorie targets, same generic advice. Someone managing diabetes, someone on a tight budget, and someone trying to gain muscle need fundamentally different guidance from the exact same plate of food.</p>
+        </div>
+        <div class="project-section">
+            <h2 class="section-title">Architecture</h2>
+            <p>Photo upload to Gemini 1.5 Flash Vision API (food identification) to goal-matching logic to personalized recommendation, with Firebase handling auth/history and React/FastAPI powering the app.</p>
+        </div>
+        <div class="project-section">
+            <h2 class="section-title">Technical Deep-Dive</h2>
+            <p>User sets goals at onboarding: weight loss, muscle gain, diabetes management, budget constraints. Gemini Vision identifies food from a photo; backend cross-references identified food against the user's specific goal profile. Recommendations are goal-relative - the same plate of biryani gets different advice for a muscle-gain user vs. a diabetes-management user. Full stack built and deployed within the hackathon window: authentication, food logging, AI analysis, and history - all functional end-to-end.</p>
+        </div>
+        <div class="project-section">
+            <h2 class="section-title">Challenges</h2>
+            <p>Designing goal-aware recommendation logic (not just "healthy/unhealthy") within a tight hackathon timeframe. Getting the full stack - auth through deployment - working end-to-end in a single sprint.</p>
+        </div>
+        <div class="project-section">
+            <h2 class="section-title">My Role</h2>
+            <p>Built with teammates Abhilash CN and Akshaay BS at the AMD Ideathon - shared ownership across frontend, backend, and AI integration.</p>
+        </div>
+        <div class="project-section">
+            <h2 class="section-title">Results</h2>
+            <p>Fully functional end-to-end demo delivered within the hackathon timeline.</p>
+        </div>
+    </main>
+    <footer>
+        <div class="container">
+            <h2>Let's build something.</h2>
+            <p class="footer-sub">advaithk0019@gmail.com &middot; +91 9019527115 &middot; Mysore, Karnataka</p>
+            <div class="footer-links">
+                <a href="mailto:advaithk0019@gmail.com">Email</a>
+                <a href="https://github.com/kadv19" target="_blank">GitHub</a>
+                <a href="https://linkedin.com/in/advaith-kashyap-74b651359" target="_blank">LinkedIn</a>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
