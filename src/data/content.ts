@@ -23,7 +23,7 @@ export const profile: Profile = {
   role: 'Software developer',
   location: 'India',
   intro:
-    'I build systems that stay honest under pressure — privacy-first on-device AI, agent architectures that refuse to authorize their own payments, and firmware that runs on real hardware. I care about software that is simple to use and quiet to run.',
+    'I’m Advaith — I own the whole stack, from sensor firmware to on-device AI to the interface on top. I lead small teams and ship end-to-end: quiet software that stays honest under pressure.',
   photo: '/advaith.jpg',
   photoAlt: 'Portrait of Advaith Kashyap',
   email: 'advaith.kashyap19@gmail.com',

@@ -13,7 +13,10 @@ export const GROUND = 620 // y of the floor the character stands on
 export const CHAR_SCALE = 1.5
 
 export const A = {
-  identity: { x: 96, y: 116, w: 560 },
+  // Wide enough for the 96px name to sit on ONE line (~690px): wrapped to two
+  // lines, the block's bottom (the location row) lands ~27px inside the intro
+  // paragraph below. Right edge (96 + 740 = 836) still clears the photo at 860.
+  identity: { x: 96, y: 116, w: 740 },
   intro: { x: 96, y: 392, w: 480 },
   facts: [
     { x: 96, y: 552 },
