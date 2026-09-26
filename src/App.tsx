@@ -37,9 +37,6 @@ export default function App() {
         <ProjectsPreview />
         <ContactPreview />
       </main>
-      <footer className="border-t border-line px-6 py-10 text-[15px] text-ink-mute md:px-10">
-        Prototype build. <a className="underline underline-offset-4 hover:text-ink" href="#lab">Design system and character lab</a>
-      </footer>
     </CharacterOverlay>
   )
 }
