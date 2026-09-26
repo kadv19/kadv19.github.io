@@ -94,8 +94,10 @@ export function buildWorkbenchTimeline(opts: {
   const set = (target: object, vars: gsap.TweenVars, at: number) =>
     tl.set(target, { ...vars, immediateRender: false }, at)
 
-  // cards: first visible, rest parked right + transparent (deterministic cross-slides below).
-  el.cards.forEach((c, i) => gsap.set(c, { opacity: i === 0 ? 1 : 0, x: i === 0 ? 0 : 60 }))
+  // Cards: first visible, rest parked right + hidden (deterministic cross-slides below).
+  // autoAlpha (not opacity): visibility:hidden takes parked cards out of hit-testing,
+  // so an invisible card stacked above can never swallow clicks meant for the shown one.
+  el.cards.forEach((c, i) => gsap.set(c, { autoAlpha: i === 0 ? 1 : 0, x: i === 0 ? 0 : 60 }))
 
   // 0.1 — drop in from above and land butt-on-bench. Legs dangle lowest, so
   // they arrive first; a tiny rock sells the impact. (Short fall: plain ease,
@@ -111,8 +113,8 @@ export function buildWorkbenchTimeline(opts: {
   }
   tap(1.2)
   const slide = (from: number, to: number, at: number) => {
-    tl.to(el.cards[from], { opacity: 0, x: -60, duration: 0.6, ease }, at)
-    tl.to(el.cards[to], { opacity: 1, x: 0, duration: 0.6, ease }, at)
+    tl.to(el.cards[from], { autoAlpha: 0, x: -60, duration: 0.6, ease }, at)
+    tl.to(el.cards[to], { autoAlpha: 1, x: 0, duration: 0.6, ease }, at)
     tap(at + 0.15)
   }
   slide(0, 1, 2.4)
