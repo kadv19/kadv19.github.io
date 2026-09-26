@@ -16,6 +16,13 @@
  *   earlier scene's pin-spacer already existing; refreshed in the wrong order, the later scene
  *   measures a page that is too short and its start/end land too early (diagnostic case E).
  * - `id` lets the diagnostic (and ScrollTrigger.getById) name each scene.
+ * - `onToggle` hides the section the instant scroll leaves its active range, in EITHER direction,
+ *   not just before it starts. Without this, a scene that has finished (scrolled past its `end`)
+ *   keeps rendering its last frame while it un-pins and resumes normal document flow — so as the
+ *   page keeps scrolling, that finished frame visibly slides up and off, as a "duplicate" of
+ *   whatever the next (overlapped, see pinOverlap.ts) scene is now showing in the same spot. Every
+ *   scene after the first is also hidden synchronously here, before ScrollTrigger has measured
+ *   anything, so there's no flash of it in its rest position at (0,0) on first paint.
  */
 export function pinnedScene(opts: {
   id: string
@@ -26,6 +33,7 @@ export function pinnedScene(opts: {
   order: number
   scrub?: number
 }): ScrollTrigger.Vars {
+  if (opts.order > 0) opts.trigger.style.visibility = 'hidden'
   return {
     id: opts.id,
     trigger: opts.trigger,
@@ -37,5 +45,8 @@ export function pinnedScene(opts: {
     anticipatePin: 1,
     invalidateOnRefresh: true,
     refreshPriority: 100 - opts.order,
+    onToggle: (self) => {
+      opts.trigger.style.visibility = self.isActive ? 'visible' : 'hidden'
+    },
   }
 }

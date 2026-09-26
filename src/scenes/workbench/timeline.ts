@@ -74,9 +74,10 @@ export function buildWorkbenchTimeline(opts: {
   const sync = () => {
     // Re-measure every frame: pinning moves the section, cached transforms go stale.
     stage = measureStage(root)
-    // Hidden until this pin starts: the section overlaps the Hulk scene's tail (pinOverlap.ts) and must
-    // not paint over it. At the instant it starts it is identical to the Hulk scene's last frame.
-    root.style.visibility = tl.progress() > 0 ? 'visible' : 'hidden'
+    // Visibility (both before this pin starts AND after it ends) is handled centrally by
+    // pinnedScene()'s onToggle — see motion/pinnedScene.ts. This also stops the populated frame from
+    // bleeding into the top of the Contact section below: once scroll passes this pin's end, this
+    // whole section disappears instead of visibly scrolling away with the last project still shown.
     // Walk cycle is distance-driven (feet never skate); wa gates it to the exit walk.
     S.wp = (S.dir * S.x) / (STRIDE * S.scale)
     // Only drive the shared rig while pinned on screen (Hulk/contact share it).

@@ -23,9 +23,9 @@ export const JUMP_LIFT = 260
 
 /**
  * The caught block, resting exactly where Spidey left it. MUST equal spidey/frames.ts BLOCK_LAND
- * (416, 500): the Spidey → Hulk handoff is a cut, and a block that is 40 px off jumps.
+ * (416, 460): the Spidey → Hulk handoff is a cut, and a block that is even a few px off snaps.
  */
-export const BLOCK_REST = { x: 416, y: 500, w: 480 }
+export const BLOCK_REST = { x: 416, y: 460, w: 480 }
 
 /** The Projects header: rests on top; he hop-grabs its bottom-middle and drags it off left. */
 export const PROJECTS_TITLE = { x: 240, y: 150, w: 800 }

@@ -156,10 +156,8 @@ export function buildSpideyTimeline(opts: {
 
     // s: scroll in viewport heights since the cut. The single clock every object below reads.
     const s = Math.max(0, tl.time()) * SCREENS_PER_UNIT
-    const started = tl.progress() > 0
-    // Hidden until the pin actually starts: this section overlaps the intro's tail on purpose (see the
-    // App wrapper), so it must not paint over the intro's outro. Deterministic in progress.
-    root.style.visibility = started ? 'visible' : 'hidden'
+    // Visibility (both before this pin starts AND after it ends) is handled centrally by
+    // pinnedScene()'s onToggle — see motion/pinnedScene.ts.
 
     if (!warnedScreens && scrollTrigger) {
       const st = tl.scrollTrigger as unknown as { start: number; end: number } | undefined

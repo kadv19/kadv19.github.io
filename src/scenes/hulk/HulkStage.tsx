@@ -15,7 +15,9 @@ import { buildHulkTimeline } from './timeline'
  * CharacterOverlay; this scene drives his pose through the shared rig.
  *
  * The outer div pulls this scene up by one viewport (motion/pinOverlap.ts) so its pin starts exactly
- * where Spidey's ends. The section hides itself until then (see the timeline), so the overlap never shows.
+ * where Spidey's ends. The section hides itself until then, and hides itself again once its own pin ends
+ * (motion/pinnedScene.ts), so the overlap never shows and this scene's last frame never visibly scrolls
+ * away underneath the workbench.
  */
 export function HulkStage() {
   const root = useRef<HTMLElement>(null)

@@ -47,7 +47,8 @@ import {
  *
  * Handoffs are cuts between identical pictures (see motion/pinOverlap.ts): this scene starts in
  * Spidey's exact final frame (idle, x 942, block at BLOCK_LAND) and ends on the frame the workbench opens
- * on. Until its own pin starts the whole section is hidden, so it never paints over the scene before it.
+ * on. The whole section is hidden until its own pin starts, and hidden again once its pin ends (see
+ * motion/pinnedScene.ts's onToggle), so it never paints over the scene before or after it.
  */
 
 const LIMB_KEYS = ['lean', 'head', 'lsh', 'lel', 'rsh', 'rel', 'lhip', 'lkn', 'rhip', 'rkn'] as const
@@ -107,11 +108,10 @@ export function buildHulkTimeline(opts: {
       rig.render()
     }
 
-    // The whole section stays hidden until this pin starts. Its box overlaps the tail of Spidey's
-    // (pinOverlap.ts), so it must not paint over Spidey's landing; and at the instant it starts it is
-    // pixel-identical to Spidey's last frame, so the cut is invisible. Deterministic in progress.
+    // Visibility (both before this pin starts AND after it ends) is handled centrally by
+    // pinnedScene()'s onToggle — see motion/pinnedScene.ts. `started` still gates the header's
+    // opacity below (it should stay invisible until it actually arrives, not just until the pin starts).
     const started = tl.progress() > 0 ? 1 : 0
-    root.style.visibility = started ? 'visible' : 'hidden'
 
     // the block: rests at BLOCK_REST (= Spidey's BLOCK_LAND), then sinks past the floor and fades only once mostly out.
     gsap.set(block, {

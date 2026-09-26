@@ -17,7 +17,9 @@ import { buildWorkbenchTimeline } from './timeline'
  * lives in the fixed overlay; this scene drives his pose through the shared rig.
  *
  * The outer div pulls this scene up by one viewport (motion/pinOverlap.ts) so its pin starts exactly
- * where the Hulk scene's ends; the section hides itself until then (see the timeline).
+ * where the Hulk scene's ends; the section hides itself until then, and hides itself again once its own
+ * pin ends (motion/pinnedScene.ts) so its last frame — the populated project frame — never visibly
+ * scrolls away into the Contact section below.
  * Keep id="projects" on the <section> only (never on the wrapper): it must stay unique per render path.
  */
 export function WorkbenchStage() {
