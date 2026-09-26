@@ -25,6 +25,10 @@ import {
  * He never walks here — he falls in, then the frame content moves under him.
  * Project divs are scene-local DOM crossfaded directly (deterministic under
  * scrub); only the shared rig goes through the shadow pose.
+ *
+ * The first frame is the Hulk scene's last frame (same frame geometry, same first card; see
+ * projectFrame.ts), and the section stays hidden until this pin starts (its box overlaps the tail of
+ * the Hulk scene, see motion/pinOverlap.ts), so the handoff is a cut between identical pictures.
  */
 
 const STRIDE = 52 // stage px of travel per walk-cycle unit, per unit of character scale
@@ -70,6 +74,9 @@ export function buildWorkbenchTimeline(opts: {
   const sync = () => {
     // Re-measure every frame: pinning moves the section, cached transforms go stale.
     stage = measureStage(root)
+    // Hidden until this pin starts: the section overlaps the Hulk scene's tail (pinOverlap.ts) and must
+    // not paint over it. At the instant it starts it is identical to the Hulk scene's last frame.
+    root.style.visibility = tl.progress() > 0 ? 'visible' : 'hidden'
     // Walk cycle is distance-driven (feet never skate); wa gates it to the exit walk.
     S.wp = (S.dir * S.x) / (STRIDE * S.scale)
     // Only drive the shared rig while pinned on screen (Hulk/contact share it).
@@ -91,7 +98,7 @@ export function buildWorkbenchTimeline(opts: {
 
   // 0.1 — drop in from above and land butt-on-bench. Legs dangle lowest, so
   // they arrive first; a tiny rock sells the impact. (Short fall: plain ease,
-  // not the shared gravity — the fall is 480px, over before physics matters.)
+  // not the shared gravity — the fall is ~340px, over before physics matters.)
   tl.to(S, { y: SIT.y, duration: 0.7, ease: 'power2.in' }, 0.1)
   tl.to(S, { lean: 14, duration: 0.12 }, 0.8)
   tl.to(S, { lean: POSES.coder.lean, duration: 0.3 }, 0.92)

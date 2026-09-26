@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TerrainFit — Terrain-Aware Posture Monitoring Backpack | Advaith Kashyap</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: #f8fafc;
+            color: #0f172a;
+            line-height: 1.6;
+        }
+        a { text-decoration: none; color: inherit; }
+        .container { max-width: 1000px; margin: 0 auto; padding: 0 24px; }
+        .hero {
+            background: linear-gradient(135deg, #0b1120 0%, #1a2332 50%, #0b1120 100%);
+            color: #f1f5f9;
+            padding: 72px 0 60px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background:
+                radial-gradient(circle at 15% 85%, rgba(59,130,246,0.10) 0%, transparent 50%),
+                radial-gradient(circle at 85% 15%, rgba(139,92,246,0.08) 0%, transparent 50%);
+        }
+        .hero .container { position: relative; }
+        .hero h1 {
+            font-size: 3.2rem;
+            font-weight: 800;
+            letter-spacing: -0.03em;
+            margin-bottom: 6px;
+        }
+        .hero .subtitle {
+            font-size: 1rem;
+            font-weight: 400;
+            color: #94a3b8;
+            margin-bottom: 8px;
+        }
+        .hero .back-link {
+            display: inline-block;
+            margin-bottom: 16px;
+            font-size: 0.9rem;
+            color: #60a5fa;
+            transition: color .2s;
+        }
+        .hero .back-link:hover { color: #93c5fd; }
+        .hero .tech-stack {
+            font-size: 0.85rem;
+            color: #64748b;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        .hero .award {
+            display: inline-block;
+            margin-top: 12px;
+            font-size: 0.8rem;
+            color: #f59e0b;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        main { padding: 32px 0 48px; }
+        .project-section { padding: 36px 0; }
+        .project-section + .project-section { border-top: 1px solid #e2e8f0; }
+        .section-title {
+            font-size: 0.85rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: #3b82f6;
+            margin-bottom: 14px;
+        }
+        .project-section p {
+            font-size: 0.95rem;
+            color: #334155;
+            max-width: 820px;
+            margin-bottom: 14px;
+        }
+        .project-section p:last-child { margin-bottom: 0; }
+        footer {
+            background: #0b1120;
+            color: #94a3b8;
+            text-align: center;
+            padding: 40px 0 32px;
+        }
+        footer h2 {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #f1f5f9;
+            margin-bottom: 4px;
+        }
+        footer .footer-sub {
+            font-size: 0.9rem;
+            color: #64748b;
+            margin-bottom: 20px;
+        }
+        footer .footer-links {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 8px 24px;
+            font-size: 0.9rem;
+        }
+        footer .footer-links a { color: #60a5fa; transition: color .2s; }
+        footer .footer-links a:hover { color: #93c5fd; }
+        @media (max-width: 640px) {
+            .hero h1 { font-size: 2rem; }
+            .hero { padding: 48px 0 40px; }
+            .project-section { padding: 24px 0; }
+        }
+    </style>
+</head>
+<body>
+    <header class="hero">
+        <div class="container">
+            <a class="back-link" href="../index.html">&larr; Back to Portfolio</a>
+            <h1>TerrainFit</h1>
+            <p class="subtitle">Terrain-Aware Posture Monitoring Backpack</p>
+            <p class="tech-stack">Arduino Uno &middot; Dual MPU6050 Gyroscopes &middot; Embedded Sensors &middot; C++</p>
+            <span class="award">1st Place, College IoT Competition</span>
+        </div>
+    </header>
+    <main class="container">
+        <div class="project-section">
+            <h2 class="section-title">Overview</h2>
+            <p>A smart backpack that tells the difference between bad posture and just walking uphill.</p>
+        </div>
+        <div class="project-section">
+            <h2 class="section-title">Problem</h2>
+            <p>Existing posture-monitoring wearables use a single accelerometer/gyroscope and flag any deviation from "upright" as bad posture. That means walking up a slope, climbing stairs, or navigating uneven terrain constantly triggers false positives — making the devices useless in real-world (non-flat, non-lab) conditions.</p>
+        </div>
+        <div class="project-section">
+            <h2 class="section-title">Architecture</h2>
+            <p>Dual MPU6050 gyroscope setup — one reference sensor tracks terrain/body baseline angle, the second tracks spine/back angle relative to it — feeding into an Arduino Uno that computes relative deviation instead of absolute deviation.</p>
+        </div>
+        <div class="project-section">
+            <h2 class="section-title">Technical Deep-Dive</h2>
+            <p>Team name: SpineSync, built by Advaith Kashyap and teammates. Dual-sensor differential approach: instead of asking "is the back at 90 degrees?", the system asks "is the back significantly deviated from the terrain-adjusted baseline?" This differential design is what eliminates the false-positive problem competitors have — the system distinguishes terrain-induced tilt from posture-induced tilt. Full embedded firmware written in C++ for Arduino Uno, real-time sensor fusion between the two MPU6050 units. Project taken through full lifecycle: ideation to hardware prototyping to firmware debugging to sensor calibration to academic paper writeup to professional documentation submission.</p>
+        </div>
+        <div class="project-section">
+            <h2 class="section-title">Challenges</h2>
+            <p>Sensor drift and calibration between two gyroscopes reading simultaneously. Distinguishing "terrain tilt" from "posture slouch" in real time without a lag that would make the feedback useless. Hardware debugging under real constraints — this was physical hardware, not just code.</p>
+        </div>
+        <div class="project-section">
+            <h2 class="section-title">My Role</h2>
+            <p>Core team member — hardware design, gyroscope calibration logic, embedded firmware, and academic paper writing.</p>
+        </div>
+        <div class="project-section">
+            <h2 class="section-title">Results</h2>
+            <p>1st place at the college IoT competition. Full working hardware prototype demoed live.</p>
+        </div>
+    </main>
+    <footer>
+        <div class="container">
+            <h2>Let's build something.</h2>
+            <p class="footer-sub">advaithk0019@gmail.com &middot; +91 9019527115 &middot; Mysore, Karnataka</p>
+            <div class="footer-links">
+                <a href="mailto:advaithk0019@gmail.com">Email</a>
+                <a href="https://github.com/kadv19" target="_blank">GitHub</a>
+                <a href="https://linkedin.com/in/advaith-kashyap-74b651359" target="_blank">LinkedIn</a>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

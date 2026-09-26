@@ -11,6 +11,8 @@ import {
   GRAB_X,
   GROUND,
   HOP_LIFT,
+  HULK_BRACE,
+  HULK_LAND,
   HULK_SCALE,
   HULK_SPAN,
   HULK_WEIGHT,
@@ -28,8 +30,9 @@ import {
  *  0.0  FLEX starts immediately: grows to hulk size (feet auto-grounded)
  *  0.8  CROUCH: winds up, holds — anticipation
  *  1.4  LAUNCH: springs to hulkAir, lift arcs him through the empty upper half
- *  2.2  FALL: lift comes back down; Projects header arrives on top
- *  3.0  LAND: hulkLand impact pose (fist down), holds
+ *  2.2  FALL: apex; lift comes back down; Projects header arrives on top
+ *  2.4  BRACE: arms fling out, legs stretch for the floor
+ *  3.0  TOUCHDOWN: absorbs into LAND (front foot flat, rear knee down, fist planted), holds
  *  3.4  SETTLE: rises to standing hulk
  *  4.0  WALK: to under the title's middle (feet cycle on distance)
  *  4.5  HOP-GRAB: springs up, hand meets the title's bottom-middle, glued
@@ -37,9 +40,14 @@ import {
  *         until both exit off-screen left; populated frame rises meanwhile
  *  6.5  recover neutral (offscreen) for the handoff
  *
- * The jump uses the rig's `lift` (grounded math throughout: planted = ground -
- * lift - bottom*scale), so there is no pop at takeoff or landing. He exits
- * offscreen dragging the title; the workbench opens with the coder dropping in.
+ * The jump uses the rig's `lift` (grounded math throughout: planted = ground - lift - bottom*scale),
+ * so there is no pop at takeoff or landing. Up and down are both GSAP 'power1' (QUADRATIC = constant
+ * acceleration) with equal durations, i.e. a true parabola. ('power2' is cubic: it arrives late and
+ * hard, and reads as a stop rather than a landing.)
+ *
+ * Handoffs are cuts between identical pictures (see motion/pinOverlap.ts): this scene starts in
+ * Spidey's exact final frame (idle, x 942, block at BLOCK_LAND) and ends on the frame the workbench opens
+ * on. Until its own pin starts the whole section is hidden, so it never paints over the scene before it.
  */
 
 const LIMB_KEYS = ['lean', 'head', 'lsh', 'lel', 'rsh', 'rel', 'lhip', 'lkn', 'rhip', 'rkn'] as const
@@ -99,10 +107,13 @@ export function buildHulkTimeline(opts: {
       rig.render()
     }
 
-    // Block: always visible (it stays until he grows — no pop-in on approach).
-    // Title/frame: hidden until the pin starts so they never paint over Spidey's tail.
+    // The whole section stays hidden until this pin starts. Its box overlaps the tail of Spidey's
+    // (pinOverlap.ts), so it must not paint over Spidey's landing; and at the instant it starts it is
+    // pixel-identical to Spidey's last frame, so the cut is invisible. Deterministic in progress.
     const started = tl.progress() > 0 ? 1 : 0
-    // the block: sinks past the floor and fades only once mostly out.
+    root.style.visibility = started ? 'visible' : 'hidden'
+
+    // the block: rests at BLOCK_REST (= Spidey's BLOCK_LAND), then sinks past the floor and fades only once mostly out.
     gsap.set(block, {
       y: P.blockOut * 420,
       rotation: -3 * P.blockOut,
@@ -118,8 +129,8 @@ export function buildHulkTimeline(opts: {
       y: lerp(baseTop - PROJECTS_TITLE.y, hand[1] - TITLE_GRIP_DY - PROJECTS_TITLE.y, P.follow),
       opacity: started * P.titleIn,
     })
-    // the populated frame: rises from below during the drag, settling on the
-    // workbench geometry so the handoff reads as one continuous window.
+    // the populated frame: rises from below during the drag, settling on the shared project-frame
+    // geometry so the handoff to the workbench reads as one continuous window.
     gsap.set(frame, {
       y: lerp(FRAME_FROM_Y, FRAME_REST.y, P.frameUp) - FRAME_REST.y,
       opacity: started,
@@ -143,16 +154,21 @@ export function buildHulkTimeline(opts: {
   // 1.4 — launch: airborne silhouette, lift arcs up, drifts toward the mark.
   // The block drops out at the same time.
   tl.to(S, { ...limbs('hulkAir'), duration: 0.4, ease }, 1.4)
-  tl.to(S, { lift: JUMP_LIFT, duration: 0.8, ease: 'power2.out' }, 1.4)
+  tl.to(S, { lift: JUMP_LIFT, duration: 0.8, ease: 'power1.out' }, 1.4) // decelerating climb
   tl.to(S, { x: LAND_X, duration: 1.6, ease: 'power1.inOut' }, 1.4)
   tl.to(P, { blockOut: 1, duration: 0.8, ease: 'power2.in' }, 1.4)
 
-  // 2.2 — fall: lift comes back, header arrives on top.
-  tl.to(S, { lift: 0, duration: 0.8, ease: 'power2.in' }, 2.2)
+  // 2.2 — fall: apex, then lift comes back with equal duration (a true parabola); header arrives on top.
+  tl.to(S, { lift: 0, duration: 0.8, ease: 'power1.in' }, 2.2)
   tl.to(P, { titleIn: 1, duration: 1.2, ease: 'power1.out' }, 2.2)
 
-  // 3.0 — impact: fist down, holds.
-  set(S, { ...limbs('hulkLand') }, 3.0)
+  // 2.4 — brace: arms fling out and legs stretch for the floor while the last of the fall is left.
+  // (Feet stay grounded-math: as the legs lengthen the pelvis rides up, so there is no pop.)
+  tl.to(S, { ...HULK_BRACE, duration: 0.55, ease: 'power1.inOut' }, 2.4)
+
+  // 3.0 — touchdown: lift reaches 0 exactly here. He absorbs the impact into the landing crouch over a
+  // short compress (not a pop), then holds it.
+  tl.to(S, { ...HULK_LAND, duration: 0.16, ease: 'power2.out' }, 3.0)
 
   // 3.4 — settle: rises to standing hulk.
   tl.to(S, { ...limbs('hulk'), duration: 0.6, ease }, 3.4)

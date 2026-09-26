@@ -1,39 +1,47 @@
 @import "tailwindcss";
 
 /*
-  Design tokens — the whole visual system lives here.
-  One accent (blue) and it is the character's colour. Nothing else is coloured.
+  Design tokens. The blue is the character and the one primary action. Everything else is the world
+  around him: --color-paper and --color-blue-tint are LIVE, set on <html> by motion/backdrop.ts as you
+  scroll (natural-dye grounds: turmeric, coral, leaf, petal, water). The values here are the starting world
+  and the no-JS fallback. Text tokens are chosen so ink text stays >= 5:1 on every ground.
 */
 @theme {
   --font-sans: "Instrument Sans", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
 
-  --color-paper: #f8fafd;      /* page */
-  --color-surface: #ffffff;    /* raised things: photo frame, project frames */
-  --color-ink: #13203a;        /* text, headings */
-  --color-ink-soft: #4a5875;   /* body copy */
-  --color-ink-mute: #5e6a86;   /* meta, captions (>= 4.5:1 on paper) */
-  --color-line: #e3e8f2;       /* hairlines */
-  --color-blue: #2b59ff;       /* the character + primary action */
-  --color-blue-soft: #a9bcff;  /* the character's outline */
-  --color-blue-tint: #edf1ff;  /* quiet fills */
+  --color-paper: #ffdf75;       /* the ground: live (backdrop.ts) */
+  --color-surface: #fffefa;     /* raised things: cards, photo frame, bubble. Warm white, like cut paper */
+  --color-ink: #16183a;         /* headings: indigo ink */
+  --color-ink-soft: #2b2f57;    /* body copy */
+  --color-ink-mute: #3a3f66;    /* meta, captions */
+  --color-line: rgb(22 24 58 / 0.18); /* hairlines: ink at low strength, so they read on any ground */
+  --color-blue: #2b59ff;        /* the character + primary action */
+  --color-blue-soft: #d6e2ff;   /* the character's outline: a pale sticker edge on any ground */
+  --color-blue-tint: #fff3c2;   /* quiet fills: live (backdrop.ts) */
 
   --text-display: clamp(3.5rem, 7vw, 5.75rem);
   --text-display--line-height: 0.98;
   --text-display--letter-spacing: -0.035em;
 }
 
-:root { color-scheme: light; }
+:root {
+  color-scheme: light;
+  --world-pop: #a57b00; /* underlines and rules: live (backdrop.ts) */
+}
 
+/* html paints the ground; body stays transparent so the fixed backdrop layer (z-index -1) shows above it */
 html { background: var(--color-paper); }
 body {
   margin: 0;
-  background: var(--color-paper);
+  background: transparent;
   color: var(--color-ink);
   font-family: var(--font-sans);
-  font-feature-settings: "ss01" 0;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
 }
+
+/* Scenes are transparent: one continuous world behind every scene and every handoff cut. */
+main section.bg-paper { background-color: transparent; }
 
 :focus-visible {
   outline: 2px solid var(--color-blue);
@@ -41,7 +49,33 @@ body {
   border-radius: 6px;
 }
 
-::selection { background: var(--color-blue-tint); }
+::selection { background: color-mix(in srgb, var(--world-pop) 38%, white); }
+
+/* Headings get a thick pigment underline in the current world's colour, like a marker under a title. */
+main h1,
+main h2 {
+  text-decoration-line: underline;
+  text-decoration-color: var(--world-pop);
+  text-decoration-thickness: 0.07em;
+  text-underline-offset: 0.12em;
+  text-decoration-skip-ink: none;
+}
+main h1 { text-decoration-thickness: 0.05em; text-underline-offset: 0.08em; }
+
+/* The three focus items: each rule in its own pigment (world colour, character blue, ink). */
+[data-block^="fact-"] > div { border-top-width: 3px; }
+[data-block="fact-0"] > div { border-top-color: var(--world-pop); }
+[data-block="fact-1"] > div { border-top-color: var(--color-blue); }
+[data-block="fact-2"] > div { border-top-color: var(--color-ink); }
+
+/* Stack chips on project cards: three inks in rotation. */
+[aria-label="Built with"] > li { border-width: 2px; }
+[aria-label="Built with"] > li:nth-child(3n + 1) { border-color: var(--world-pop); }
+[aria-label="Built with"] > li:nth-child(3n + 2) { border-color: var(--color-blue); }
+[aria-label="Built with"] > li:nth-child(3n) { border-color: var(--color-ink); }
+
+/* The closing link sits on the ground, not on a card: blue would be under 4.5:1 on some worlds. */
+[data-block="more"] a { color: var(--color-ink); text-decoration-color: var(--world-pop); text-decoration-thickness: 2px; }
 
 .sr-only-focusable:not(:focus) {
   position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%);
