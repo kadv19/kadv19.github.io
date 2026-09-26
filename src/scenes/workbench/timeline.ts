@@ -85,6 +85,13 @@ export function buildWorkbenchTimeline(opts: {
     if (st && st.isActive === true) {
       applyShadowPose(rig, S, stage)
       rig.render()
+    } else if (tl.progress() >= 1) {
+      // Scrolled past the pin end — possibly fast, before scrub smoothing caught
+      // up. S already holds the timeline's final (fully off-screen) values, so
+      // snap the shared rig there. Without this he freezes mid-exit with a foot
+      // still on screen, and nothing re-drives him until the next scene.
+      applyShadowPose(rig, S, stage)
+      rig.render()
     }
   }
 
